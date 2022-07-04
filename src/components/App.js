@@ -1,40 +1,40 @@
-import React from 'react'; 
+import React from "react";
 
-import '../index.css';
-import Header from './Header';
-import Main from './Main';
-import Footer from './Footer';
-import PopupWithForm from './PopupWithForm';
-import ImagePopup from './ImagePopup';
+import "../index.css";
+import Header from "./Header";
+import Main from "./Main";
+import Footer from "./Footer";
+import PopupWithForm from "./PopupWithForm";
+import ImagePopup from "./ImagePopup";
 
 function App() {
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
 
-  const [selectedCard, setSelectedCard] = React.useState({});
+  const [selectedCard, setSelectedCard] = React.useState(null);
 
   function handleEditAvatarClick() {
     setIsEditAvatarPopupOpen(true);
   }
-  
+
   function handleEditProfileClick() {
     setIsEditProfilePopupOpen(true);
   }
-  
+
   function handleAddPlaceClick() {
     setIsAddPlacePopupOpen(true);
   }
 
-  function handleCardClick(carditem) {
-    setSelectedCard({carditem});
+  function handleCardClick(cardItem) {
+    setSelectedCard(cardItem);
   }
 
   function closeAllPopups() {
     setIsEditAvatarPopupOpen(false);
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
-    setSelectedCard({});
+    setSelectedCard(null);
   }
 
   return (
@@ -42,33 +42,44 @@ function App() {
       <div className="page">
         <Header />
 
-        <Main onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick} onEditAvatar={handleEditAvatarClick} onCardClick={handleCardClick}/>
+        <Main
+          onEditProfile={handleEditProfileClick}
+          onAddPlace={handleAddPlaceClick}
+          onEditAvatar={handleEditAvatarClick}
+          onCardClick={handleCardClick}
+        />
 
         <Footer />
 
-        <PopupWithForm name="edit-profile" title="Редактировать профиль" ariaLabelButtonText="Сохранить" buttonText="Сохранить" 
-        isOpen={isEditProfilePopupOpen} onClose={closeAllPopups}>
+        <PopupWithForm
+          name="edit-profile"
+          title="Редактировать профиль"
+          ariaLabelButtonText="Сохранить"
+          buttonText="Сохранить"
+          isOpen={isEditProfilePopupOpen}
+          onClose={closeAllPopups}
+        >
           <label className="popup__field">
-            <input 
+            <input
               required
-              className="popup__input" 
-              type="text" 
-              id="user-name" 
-              name="user-name" 
-              minLength="2" 
-              maxLength="40" 
+              className="popup__input"
+              type="text"
+              id="user-name"
+              name="user-name"
+              minLength="2"
+              maxLength="40"
               placeholder="Имя"
             />
             <span className="popup__error" id="user-name-error"></span>
           </label>
           <label className="popup__field">
-            <input 
+            <input
               required
-              className="popup__input" 
-              type="text" 
-              id="user-info" 
-              name="user-info" 
-              minLength="2" 
+              className="popup__input"
+              type="text"
+              id="user-info"
+              name="user-info"
+              minLength="2"
               maxLength="200"
               placeholder="О себе"
             />
@@ -76,12 +87,18 @@ function App() {
           </label>
         </PopupWithForm>
 
-        <PopupWithForm name="add-new-item" title="Новое место" ariaLabelButtonText="Создать" buttonText="Создать"
-        isOpen={isAddPlacePopupOpen} onClose={closeAllPopups}>
+        <PopupWithForm
+          name="add-new-item"
+          title="Новое место"
+          ariaLabelButtonText="Создать"
+          buttonText="Создать"
+          isOpen={isAddPlacePopupOpen}
+          onClose={closeAllPopups}
+        >
           <label className="popup__field">
-            <input 
+            <input
               required
-              className="popup__input" 
+              className="popup__input"
               type="text"
               id="place-name"
               name="place-name"
@@ -92,40 +109,48 @@ function App() {
             <span className="popup__error" id="place-name-error"></span>
           </label>
           <label className="popup__field">
-            <input 
+            <input
               required
-              className="popup__input" 
-              type="url" 
-              id="place-link" 
-              name="place-link"  
+              className="popup__input"
+              type="url"
+              id="place-link"
+              name="place-link"
               placeholder="Ссылка на картинку"
             />
             <span className="popup__error" id="place-link-error"></span>
           </label>
         </PopupWithForm>
 
-        <PopupWithForm name="update-avatar-form" title="Обновить аватар" ariaLabelButtonText="Сохранить" buttonText="Сохранить" 
-        isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups}>
+        <PopupWithForm
+          name="update-avatar-form"
+          title="Обновить аватар"
+          ariaLabelButtonText="Сохранить"
+          buttonText="Сохранить"
+          isOpen={isEditAvatarPopupOpen}
+          onClose={closeAllPopups}
+        >
           <label className="popup__field">
-            <input 
+            <input
               required
-              className="popup__input" 
-              type="url" 
-              id="user-photo-link" 
-              name="user-photo-link"  
+              className="popup__input"
+              type="url"
+              id="user-photo-link"
+              name="user-photo-link"
               placeholder="Ссылка на новый аватар"
             />
             <span className="popup__error" id="user-photo-link-error"></span>
           </label>
         </PopupWithForm>
 
-        <PopupWithForm name="deletion-confirmation" title="Вы уверены?" ariaLabelButtonText="Да" buttonText="Да">
-        </PopupWithForm>
+        <PopupWithForm
+          name="deletion-confirmation"
+          title="Вы уверены?"
+          ariaLabelButtonText="Да"
+          buttonText="Да"
+        ></PopupWithForm>
 
-        <ImagePopup card={selectedCard} onClose={closeAllPopups}/>
-
+        <ImagePopup card={selectedCard} onClose={closeAllPopups} />
       </div>
-
     </div>
   );
 }
