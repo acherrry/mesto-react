@@ -1,32 +1,27 @@
 import React from "react";
-
-import { api } from "../utils/Api";
 import Card from "./Card";
+import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
-function Main({ onEditAvatar, onEditProfile, onAddPlace, onCardClick }) {
-  const [userName, setUserName] = React.useState("");
-  const [userDescription, setUserDescription] = React.useState("");
-  const [userAvatar, setUserAvatar] = React.useState("");
-
-  const [cards, setCards] = React.useState([]);
-
-  React.useEffect(() => {
-    Promise.all([api.getUserInfo(), api.getCards()])
-      .then(([result, cardsArray]) => {
-        setUserName(result.name);
-        setUserDescription(result.about);
-        setUserAvatar(result.avatar);
-        setCards(cardsArray);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
+function Main({
+  onEditAvatar,
+  onEditProfile,
+  onAddPlace,
+  onCardClick,
+  cards,
+  onCardLike,
+  onCardDelete,
+}) {
+  const currentUser = React.useContext(CurrentUserContext);
 
   const cardsElements = cards.map((item) => {
     return (
       <li key={item._id}>
-        <Card card={item} onCardClick={onCardClick} />
+        <Card
+          card={item}
+          onCardClick={onCardClick}
+          onCardLike={onCardLike}
+          onCardDelete={onCardDelete}
+        />
       </li>
     );
   });
@@ -38,17 +33,17 @@ function Main({ onEditAvatar, onEditProfile, onAddPlace, onCardClick }) {
           <a
             className="profile__avatar"
             onClick={onEditAvatar}
-            style={{ backgroundImage: `url(${userAvatar})` }}
+            style={{ backgroundImage: `url(${currentUser.avatar})` }}
           ></a>
           <div className="profile__personal-data">
-            <h1 className="profile__name">{userName}</h1>
+            <h1 className="profile__name">{currentUser.name}</h1>
             <button
               className="profile__edit-button"
               type="button"
               aria-label="Редактировать"
               onClick={onEditProfile}
             ></button>
-            <p className="profile__status">{userDescription}</p>
+            <p className="profile__status">{currentUser.about}</p>
           </div>
         </div>
         <button

@@ -8,6 +8,7 @@ function PopupWithForm({
   title,
   ariaLabelButtonText,
   buttonText,
+  onSubmit,
 }) {
   return (
     <div
@@ -24,7 +25,12 @@ function PopupWithForm({
           onClick={onClose}
         ></button>
         <h2 className="popup__title">{title}</h2>
-        <form className="popup__form" name={name} noValidate>
+        <form
+          className="popup__form"
+          onSubmit={onSubmit}
+          name={name}
+          noValidate
+        >
           {children}
           <button
             className="popup__save"
