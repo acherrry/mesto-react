@@ -2,30 +2,60 @@ import React from "react";
 import PopupWithForm from "./PopupWithForm";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
-function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
+function EditProfilePopup({
+  isOpen,
+  onClose,
+  onUpdateUser,
+  isLoadingButtonText,
+}) {
   const currentUser = React.useContext(CurrentUserContext);
-  const [name, setName] = React.useState("");
-  const [description, setDescription] = React.useState("");
+  const [formInputsValues, setFormInputsValues] = React.useState({
+    name: {
+      value: "",
+      error: "",
+      isValid: true,
+    },
+    info: {
+      value: "",
+      error: "",
+      isValid: true,
+    },
+  });
 
   React.useEffect(() => {
-    setName(currentUser.name);
-    setDescription(currentUser.about);
-  }, [currentUser]);
+    setFormInputsValues({
+      name: {
+        value: currentUser.name,
+        error: "",
+        isValid: true,
+      },
+      info: {
+        value: currentUser.about,
+        error: "",
+        isValid: true,
+      },
+    });
+  }, [currentUser, isOpen]);
 
-  function handleChangeName(e) {
-    setName(e.target.value);
-  }
+  function handleInputChange(e) {
+    const target = e.target;
+    const name = target.name;
+    const value = target.value;
+    const validationMessage = target.validationMessage;
+    const valid = target.validity.valid;
 
-  function handleChangeInfo(e) {
-    setDescription(e.target.value);
+    setFormInputsValues((prevState) => ({
+      ...prevState,
+      [name]: { value, error: validationMessage, isValid: valid },
+    }));
   }
 
   function handleSubmit(e) {
     e.preventDefault();
 
     onUpdateUser({
-      name,
-      about: description,
+      name: formInputsValues.name.value,
+      about: formInputsValues.info.value,
     });
   }
 
@@ -38,37 +68,67 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
       isOpen={isOpen}
       onClose={onClose}
       onUpdateUser={handleSubmit}
+      isLoadingButtonText={isLoadingButtonText}
       onSubmit={handleSubmit}
+      isValid={
+        formInputsValues.name.isValid && 
+        formInputsValues.info.isValid && 
+        formInputsValues.name.value != "" &&
+        formInputsValues.info.value != ""}
     >
       <label className="popup__field">
         <input
           required
-          className="popup__input"
+          className={`popup__input ${
+            formInputsValues.name.isValid
+              ? "popup__input"
+              : "popup__input_type_error"
+          }`}
           type="text"
           id="user-name"
-          name="user-name"
+          name="name"
           minLength="2"
           maxLength="40"
           placeholder="Имя"
-          value={name}
-          onChange={handleChangeName}
+          value={formInputsValues.name.value}
+          onChange={handleInputChange}
         />
-        <span className="popup__error" id="user-name-error"></span>
+        <span
+          className={`popup__error ${
+            formInputsValues.name.isValid
+              ? "popup__error"
+              : "popup__error_visible"
+          }`}
+        >
+          {formInputsValues.name.error}
+        </span>
       </label>
       <label className="popup__field">
         <input
           required
-          className="popup__input"
+          className={`popup__input ${
+            formInputsValues.info.isValid
+              ? "popup__input"
+              : "popup__input_type_error"
+          }`}
           type="text"
           id="user-info"
-          name="user-info"
+          name="info"
           minLength="2"
           maxLength="200"
           placeholder="О себе"
-          value={description}
-          onChange={handleChangeInfo}
+          value={formInputsValues.info.value}
+          onChange={handleInputChange}
         />
-        <span className="popup__error" id="user-info-error"></span>
+        <span
+          className={`popup__error ${
+            formInputsValues.info.isValid
+              ? "popup__error"
+              : "popup__error_visible"
+          }`}
+        >
+          {formInputsValues.info.error}
+        </span>
       </label>
     </PopupWithForm>
   );

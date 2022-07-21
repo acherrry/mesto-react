@@ -9,6 +9,7 @@ function Main({
   onCardClick,
   cards,
   onCardLike,
+  isOpen,
   onCardDelete,
 }) {
   const currentUser = React.useContext(CurrentUserContext);
@@ -20,6 +21,7 @@ function Main({
           card={item}
           onCardClick={onCardClick}
           onCardLike={onCardLike}
+          isOpen={isOpen}
           onCardDelete={onCardDelete}
         />
       </li>

@@ -7,8 +7,9 @@ function PopupWithForm({
   name,
   title,
   ariaLabelButtonText,
-  buttonText,
+  isLoadingButtonText,
   onSubmit,
+  isValid,
 }) {
   return (
     <div
@@ -33,11 +34,13 @@ function PopupWithForm({
         >
           {children}
           <button
-            className="popup__save"
+            className={`popup__save ${
+              isValid ? "popup__save" : "popup__save_disabled"}`}
+            disabled={!isValid}
             type="submit"
             aria-label={ariaLabelButtonText}
           >
-            {buttonText}
+            {isLoadingButtonText ? "Сохранение..." : ariaLabelButtonText}
           </button>
         </form>
       </div>

@@ -55,3 +55,4 @@
 @import url(./blocks/popup/__text/popup__text.css);
 @import url(./blocks/popup/__save/_disabled/popup__save_disabled.css);
 @import url(./blocks/popup/__error/popup__error.css);
+@import url(./blocks/popup/__error/_visible/popup__error_visible.css);
