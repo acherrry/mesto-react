@@ -14,13 +14,13 @@ function ImagePopup({ card, onClose }) {
           className="popup__close"
           type="button"
           onClick={onClose}
-        ></button>
+        />
         <img
           className="popup__img"
           alt={card ? card.name : ""}
           src={card ? card.link : "/"}
         />
-        <p className="popup__text"></p>
+        <p className="popup__text"/>
       </div>
     </div>
   );

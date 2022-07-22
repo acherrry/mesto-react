@@ -24,7 +24,7 @@ function PopupWithForm({
           className="popup__close"
           type="button"
           onClick={onClose}
-        ></button>
+        />
         <h2 className="popup__title">{title}</h2>
         <form
           className="popup__form"

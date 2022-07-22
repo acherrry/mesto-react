@@ -14,8 +14,7 @@ function Main({
 }) {
   const currentUser = React.useContext(CurrentUserContext);
 
-  const cardsElements = cards.map((item) => {
-    return (
+  const cardsElements = cards.map(item =>
       <li key={item._id}>
         <Card
           card={item}
@@ -26,7 +25,6 @@ function Main({
         />
       </li>
     );
-  });
 
   return (
     <main className="content">
@@ -36,7 +34,7 @@ function Main({
             className="profile__avatar"
             onClick={onEditAvatar}
             style={{ backgroundImage: `url(${currentUser.avatar})` }}
-          ></a>
+          />
           <div className="profile__personal-data">
             <h1 className="profile__name">{currentUser.name}</h1>
             <button
@@ -44,7 +42,7 @@ function Main({
               type="button"
               aria-label="Редактировать"
               onClick={onEditProfile}
-            ></button>
+            />
             <p className="profile__status">{currentUser.about}</p>
           </div>
         </div>
@@ -53,7 +51,7 @@ function Main({
           type="button"
           aria-label="Добавить"
           onClick={onAddPlace}
-        ></button>
+        />
       </section>
 
       <section className="places">

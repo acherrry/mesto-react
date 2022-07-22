@@ -71,8 +71,8 @@ function AddPlacePopup({
       isValid={
         formInputsValues.name.isValid &&
         formInputsValues.link.isValid &&
-        formInputsValues.name.value != "" &&
-        formInputsValues.link.value != ""
+        formInputsValues.name.value !== "" &&
+        formInputsValues.link.value !== ""
       }
     >
       <label className="popup__field">

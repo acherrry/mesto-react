@@ -33,7 +33,7 @@ function Card({ card, onCardClick, onCardLike, onCardDelete }) {
         className="place__img"
         style={{ backgroundImage: `url(${card.link})` }}
         onClick={handleClick}
-      ></a>
+      />
       <div className="place__info">
         <h2 className="place__name">{card.name}</h2>
         <div className="place__like">
@@ -42,7 +42,7 @@ function Card({ card, onCardClick, onCardLike, onCardDelete }) {
             onClick={handleLikeClick}
             type="button"
             aria-label="Выразить оценку - нравится"
-          ></button>
+          />
           <p className="place__number-of-likes">{card.likes.length}</p>
         </div>
       </div>
@@ -51,7 +51,7 @@ function Card({ card, onCardClick, onCardLike, onCardDelete }) {
         onClick={handleDeleteClick}
         type="button"
         aria-label="Удалить"
-      ></button>
+      />
     </div>
   );
 }

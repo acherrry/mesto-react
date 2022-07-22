@@ -7,26 +7,26 @@ function EditAvatarPopup({
   onUpdateAvatar,
   isLoadingButtonText,
 }) {
-  const avatarInputRef = React.useRef();
-  const [inputValue, setInputValue] = React.useState("");
+  const avatarInputRef = React.useRef("");
   const [isInputValid, setIsInputValid] = React.useState(true);
+  const [isButonActive, setIsButonActive] = React.useState(false);
   const [validationErrorMessage, setValidationErrorMessage] = React.useState("");
 
   function checkFormValidation(e) {
     if (e.target.validity.valid) {
-      setIsInputValid(true);
+      setIsInputValid(true );
     } else {
       setIsInputValid(false);
       setValidationErrorMessage(e.target.validationMessage);
     }
-    setInputValue(e.target.value);
+    setIsButonActive(e.target.validity.valid && (avatarInputRef.current.value !== ''));
   }
 
   React.useEffect(() => {
     avatarInputRef.current.value = "";
     setIsInputValid(true);
+    setIsButonActive(false);
     setValidationErrorMessage("");
-    setInputValue("");
   }, [isOpen]);
 
   function handleSubmit(e) {
@@ -36,7 +36,7 @@ function EditAvatarPopup({
       avatar: avatarInputRef.current.value,
     });
   }
-
+  
   return (
     <PopupWithForm
       name="update-avatar-form"
@@ -48,7 +48,7 @@ function EditAvatarPopup({
       onUpdateAvatar={handleSubmit}
       isLoadingButtonText={isLoadingButtonText}
       onSubmit={handleSubmit}
-      isValid={isInputValid && inputValue != ""}
+      isValid={isButonActive}
     >
       <label className="popup__field">
         <input

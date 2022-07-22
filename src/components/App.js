@@ -41,7 +41,7 @@ function App() {
     if (!isLiked) {
       api.putSettingLike(card._id)
         .then((newCard) => {
-          setCards(cards.map((c) => (c._id === card._id ? newCard : c)));
+          setCards(cards => cards.map((c) => (c._id === card._id ? newCard : c)));
         })
         .catch(err => {
           console.log(err);
@@ -49,7 +49,7 @@ function App() {
     } else {
       api.removeLike(card._id)
         .then((newCard) => {
-          setCards(cards.map((c) => (c._id === card._id ? newCard : c)));
+          setCards(cards => cards.map((c) => (c._id === card._id ? newCard : c)));
         })
         .catch(err => {
           console.log(err);
@@ -60,7 +60,7 @@ function App() {
   function handleCardDelete(card) {
     api.deleteCard(card._id)
       .then(() => {
-        setCards(cards.filter((d) => (card._id !== d._id ? d : null)));
+        setCards(cards => cards.filter((d) => (card._id !== d._id ? d : null)));
         closeAllPopups();
       })
       .catch(err => {

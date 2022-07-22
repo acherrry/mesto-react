@@ -73,8 +73,8 @@ function EditProfilePopup({
       isValid={
         formInputsValues.name.isValid && 
         formInputsValues.info.isValid && 
-        formInputsValues.name.value != "" &&
-        formInputsValues.info.value != ""}
+        formInputsValues.name.value !== "" &&
+        formInputsValues.info.value !== ""}
     >
       <label className="popup__field">
         <input
